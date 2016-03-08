@@ -1,2 +1,0 @@
-# pyBearClientB
-pyBearClientB
