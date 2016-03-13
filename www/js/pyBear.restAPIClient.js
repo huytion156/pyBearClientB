@@ -1,6 +1,6 @@
 angular.module('pyBear.restAPIClient', [])
 .factory('RestAPIGateWay', function($http) {
-	const 	DEFAULT_GATEWAY 	= "http://192.168.200.80/pyBearServer",
+	const 	DEFAULT_GATEWAY 	= "http://192.168.200.80:1235",
 			DEFAULT_BEAR_ROOM	= "BearNo1",
 			DEFAULT_TYPE		= "json";
 
@@ -20,28 +20,40 @@ angular.module('pyBear.restAPIClient', [])
 		},
 		'get': function(url, data, successCB, errorCB, config) {
 			url = this.formatURL(url, data);
-			$http.get(url, config).then(successCB, errorCB);
+			return $http.get(url, config).then(successCB, errorCB);
 		},
 		'post': function(url, data, successCB, errorCB, config) {
-			$http.post(url, data, config).then(successCB, errorCB);
+			url = this.formatURL(url);
+			return $http.post(url, data, config).then(successCB, errorCB);
 		},
 		'put': function(url, data, successCB, errorCB, config) {
-			$http.put(url, data, config).then(successCB, errorCB);
+			url = this.formatURL(url);
+			return $http.put(url, data, config).then(successCB, errorCB);
 		},
 		'delete': function(url, data, successCB, errorCB, config) {
 			url = this.formatURL(url, data);
-			$http.delete(url, config).then(successCB, errorCB);
+			return $http.delete(url, config).then(successCB, errorCB);
 		},
 	};
 })
 .factory('RestAPIClient_story', function(RestAPIGateWay) {
 	return {
-	    'setList': function(variable) {
-	   		RestAPIGateWay.get('/story', {}, function(response) {
-	   			variable = response;
+	    'setList': function() {
+	   		return RestAPIGateWay.get('/story', {}, function(response) {
+	   			var data = response.data.data;
 	   			Debug("setList story check");
-	   			Debug(response);
+	   			Debug(response.data);
+	   			Debug(data);
+	   			return data;
 	   		});
 	    },
+	    'play': function(story) {
+	    	var url = story['default_url'];
+	    	return RestAPIGateWay.post('/story/play', {
+	    		'url': url
+	    	}, function (response) {
+	    		Debug(response.data);
+	    	});
+	    }
 	};
 });

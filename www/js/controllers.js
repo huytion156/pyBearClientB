@@ -1,8 +1,17 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, RestAPIClient_story) {
+  //variable
   $scope.storyList = {};
-  RestAPIClient_story.setList($scope.storyList);
+
+  //callback
+  $scope.play = function(story) {
+    RestAPIClient_story.play(story);
+  }
+
+  RestAPIClient_story.setList().then(function (data) {
+    $scope.storyList = data;
+  });
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
