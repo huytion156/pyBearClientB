@@ -1,6 +1,6 @@
 angular.module('pyBear.restAPIClient', [])
 .factory('RestAPIGateWay', function($http) {
-	const 	DEFAULT_GATEWAY 	= "http://192.168.200.80:1235",
+	const 	DEFAULT_GATEWAY 	= "http://192.168.100.245:1235",
 			DEFAULT_BEAR_ROOM	= "BearNo1",
 			DEFAULT_TYPE		= "json";
 
@@ -49,8 +49,10 @@ angular.module('pyBear.restAPIClient', [])
 	    },
 	    'play': function(story) {
 	    	var url = story['default_url'];
+	    	var sid = story['sid'];
 	    	return RestAPIGateWay.post('/story/play', {
-	    		'url': url
+	    		'url': url,
+	    		'sid': sid
 	    	}, function (response) {
 	    		Debug(response.data);
 	    	});
