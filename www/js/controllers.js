@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, RestAPIClient_story) {
+.controller('DashCtrl', function($scope, RestAPIGateWay, RestAPIClient_story) {
   //variable
   $scope.storyList = {};
 
@@ -9,9 +9,27 @@ angular.module('starter.controllers', [])
     RestAPIClient_story.play(story);
   }
 
-  RestAPIClient_story.setList().then(function (data) {
-    $scope.storyList = data;
-  });
+  $scope.updateUid = function(uid) {
+    console.log(uid);
+    RestAPIGateWay.setUID(uid);
+    updateList();
+  }
+
+  $scope.setVolume = function(volume) {
+    console.log(volume);
+    RestAPIClient_story.setVolume(volume);
+  }
+
+  $scope.updatePlaylist = function(uid) {
+    RestAPIClient_story.updatePlaylist(uid, $scope.storyList);
+  }
+
+  function updateList() {
+    RestAPIClient_story.setList().then(function (data) {
+      $scope.storyList = data;
+    });
+  }
+
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
