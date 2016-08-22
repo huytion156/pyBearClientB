@@ -45,6 +45,15 @@ angular.module('starter', [
 
   // Each tab has its own nav history stack:
 
+  .state('tab.users', {
+      url: '/users',
+      views: {
+        'tab-users': {
+          templateUrl: 'templates/tab-users.html',
+          controller: 'UsersCtrl'
+        }
+      }
+    })
   .state('tab.dash', {
     url: '/dash',
     views: {
@@ -55,24 +64,7 @@ angular.module('starter', [
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
-      }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+  
 
   .state('tab.account', {
     url: '/account',
@@ -85,6 +77,6 @@ angular.module('starter', [
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/users');
 
 });

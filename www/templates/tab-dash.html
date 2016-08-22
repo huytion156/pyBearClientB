@@ -1,13 +1,15 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
     <h2>Welcome to Ionic</h2>
-    <input ng-model="uid" ng-change="updateUid(uid)" /><input ng-model="volume" ng-change="setVolume(volume)" /><input type="button" value="update playlist" ng-click="updatePlaylist(uid)">
+    
+    <input ng-model="volume" ng-change="setVolume(volume)" />
+    <input type="button" value="update playlist" ng-click="updatePlaylist(uid)">
+    <input type="button" value="play ailab mp3" ng-click="playAILabMp3(uid)">
     {{uid}}
     <ul ng-repeat="story in storyList">
       <li > 
-        <input type="checkbox" ng-model="story.checked"> <span ng-click="play(story)">Click vô để phát bài {{story.title}}</span>
+        <input type="checkbox" ng-model="story.checked"> <span ng-click="play(story)">{{story.title}}</span>
       </li>
     </ul>
-    {{storyList | json}}
   </ion-content>
 </ion-view>
